@@ -1,9 +1,11 @@
-package com.gra.recist;
+package com.gra.recist.presentation.analyser;
 
+import com.google.inject.Inject;
+import com.gra.recist.presentation.util.MainFxLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class RecistAnalyser {
     @FXML
     private Label welcomeText;
 
