@@ -4,22 +4,13 @@ import com.gra.recist.domain.event.IEvent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Consumer;
 
-public abstract class AggregateRoot implements Entity<UUID> {
-
-    private final UUID id;
+public abstract class AggregateRoot extends Entity {
     private List<IEvent> events;
 
-    public AggregateRoot(UUID id) {
-        this.id = id;
+    public AggregateRoot() {
         this.events = new ArrayList<>();
-    }
-
-    @Override
-    public UUID getId() {
-        return id;
     }
 
     protected void sendEvent(IEvent event) {

@@ -1,6 +1,15 @@
 package com.gra.recist.domain.repository;
 
-public interface Entity<T> {
+import java.util.UUID;
 
-    T getId();
+public class Entity {
+    private final UUID id;
+
+    public Entity() {
+        this.id = UUID.randomUUID();
+    }
+
+    public UUID getId() {
+        return id;
+    }
 }
