@@ -2,11 +2,13 @@ package com.gra.recist.presentation.analyser;
 
 import com.google.inject.Inject;
 import com.gra.recist.application.readmodel.RecistAnalysisReadModel;
+import com.gra.recist.application.repository.ReadModelRepository;
 import com.gra.recist.application.service.RecistAnalysisService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class RecistAnalyser {
@@ -19,6 +21,9 @@ public class RecistAnalyser {
     @Inject
     RecistAnalysisService recistAnalysisService;
 
+    @Inject
+    ReadModelRepository<RecistAnalysisReadModel> analysisReadModelRepository;
+
     private int counter;
 
     @FXML
@@ -26,11 +31,10 @@ public class RecistAnalyser {
         counter++;
         String analysisName = "Recist Analysis " + counter;
 
-        CompletableFuture<RecistAnalysis> recistAnalysisFuture = recistAnalysisService.createRecistAnalysis(analysisName);
+        CompletableFuture<UUID> recistAnalysisFuture = recistAnalysisService.createRecistAnalysis(analysisName);
 
         recistAnalysisFuture
-                .thenAccept(id -> recistRepository.get(id))
+                .thenApply(id -> analysisReadModelRepository.get(id))
                 .thenAccept(recistAnalysisReadModel -> recistAnalysisList.getItems().add(recistAnalysisReadModel));
-
     }
 }

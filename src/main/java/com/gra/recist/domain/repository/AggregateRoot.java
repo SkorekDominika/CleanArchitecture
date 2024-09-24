@@ -17,7 +17,7 @@ public abstract class AggregateRoot extends Entity {
         this.events.add(event);
     }
 
-    void drainEvents(Consumer<IEvent> consumer) {
+    public void drainEvents(Consumer<IEvent> consumer) {
         List<IEvent> oldEvents = events;
         events = new ArrayList<>();
         oldEvents.forEach(consumer);
