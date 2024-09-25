@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.gra.recist.application.readmodel.RecistAnalysisReadModel;
 import com.gra.recist.application.repository.ReadModelRepository;
 import com.gra.recist.application.service.RecistAnalysisService;
+import com.gra.recist.infrastructure.repository.readmodel.RecistAnalysisReadModelRepository;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -22,7 +23,7 @@ public class RecistAnalyser {
     RecistAnalysisService recistAnalysisService;
 
     @Inject
-    ReadModelRepository<RecistAnalysisReadModel> analysisReadModelRepository;
+    RecistAnalysisReadModelRepository analysisReadModelRepository;
 
     private int counter;
 

@@ -15,7 +15,7 @@ public class RecistAnalysisCellFactory implements Callback<ListView<RecistAnalys
                 if (empty || recistAnalysis == null) {
                     setText(null);
                 } else {
-                    setText(recistAnalysis.getName());
+                    textProperty().bind(recistAnalysis.getName());
                 }
             }
         };

@@ -2,10 +2,11 @@ package com.gra.recist.domain.event;
 
 import com.gra.recist.domain.repository.Entity;
 
-public class NewEntityCreated<T extends Entity> implements IEvent<T> {
+public class EntityModified<T extends Entity> implements IEvent<T> {
+
     private final T entity;
 
-    public NewEntityCreated(T entity) {
+    public EntityModified(T entity) {
         this.entity = entity;
     }
 

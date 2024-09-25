@@ -21,7 +21,6 @@ public class RecistAnalysisService {
     public CompletableFuture<UUID> createRecistAnalysis(String analysisName) {
         RecistAnalysis recistAnalysis = new RecistAnalysis(analysisName);
         recistAnalysisRepository.save(recistAnalysis);
-
         return CompletableFuture.completedFuture(recistAnalysis.getId());
     }
 }
