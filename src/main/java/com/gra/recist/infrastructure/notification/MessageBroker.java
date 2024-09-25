@@ -12,46 +12,59 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Singleton
 public class MessageBroker {
 
-    private final Thread cleanerThread;
     Map<EntityIdentifier, List<WeakReference<ReadModel<? extends Entity>>>> readModels = new ConcurrentHashMap<>();
-
     ReferenceQueue<ReadModel<? extends Entity>> referenceQueue = new ReferenceQueue<>();
-
     Map<Reference<ReadModel<? extends Entity>>, Runnable> referenceCleaners = new ConcurrentHashMap<>();
 
 
     public MessageBroker() {
-        this.cleanerThread = new Thread(
-                () -> {
-                    while (true) {
-                        Reference<? extends ReadModel<? extends Entity>> toClean = referenceQueue.poll();
-                        Optional.ofNullable(referenceCleaners.remove(toClean)).ifPresent(Runnable::run);
-                    }
-                }
-        );
-        this.cleanerThread.setDaemon(true);
-        this.cleanerThread.start();
+        Thread cleanerThread = createCleanerThread();
+        cleanerThread.setDaemon(true);
+        cleanerThread.start();
     }
 
-    public void broadcast(IEvent<? extends Entity> event) {
-        Entity entity = event.getEntity();
-        EntityIdentifier entityIdentifier = new EntityIdentifier(entity.getClass(), entity.getId());
+    private Thread createCleanerThread() {
+        return new Thread(() -> {
+            while (true) {
+                cleanUpReferences();
+            }
+        });
+    }
+
+    private void cleanUpReferences() {
+        Reference<? extends ReadModel<? extends Entity>> toClean = referenceQueue.poll();
+        Optional.ofNullable(referenceCleaners.remove(toClean)).ifPresent(Runnable::run);
+    }
+
+    public void broadcast(IEvent event) {
+        EntityIdentifier entityIdentifier = createEntityIdentifier(event);
         Optional.ofNullable(readModels.get(entityIdentifier))
-                .ifPresent(weakReferences -> weakReferences.forEach(reference -> reference.get().dispatchEvent(event)));
+                .ifPresent(weakReferences -> weakReferences.forEach(reference ->
+                        Optional.ofNullable(reference.get())
+                                .ifPresent(readModel -> readModel.dispatchEvent(event))));
+    }
+
+    private static EntityIdentifier createEntityIdentifier(IEvent event) {
+        Entity entity = event.getEntity();
+        UUID id = event.isGlobal() ? null : entity.getId();
+        return new EntityIdentifier(entity.getClass(), id);
     }
 
     public void subscribe(EntityIdentifier entityIdentifier, ReadModel<? extends Entity> readModel) {
         WeakReference<ReadModel<? extends Entity>> weakReference = new WeakReference<>(readModel, referenceQueue);
         readModels.computeIfAbsent(entityIdentifier, id -> new CopyOnWriteArrayList<>()).add(weakReference);
-        referenceCleaners.put(weakReference, () -> {
-            readModels.computeIfAbsent(entityIdentifier, id -> new CopyOnWriteArrayList<>()).remove(weakReference);
-            readModels.entrySet().removeIf(entry -> entry.getValue().isEmpty());
-        });
+        referenceCleaners.put(weakReference, () -> cleanUpReadModels(entityIdentifier, weakReference));
+    }
+
+    private void cleanUpReadModels(EntityIdentifier entityIdentifier, WeakReference<ReadModel<? extends Entity>> weakReference) {
+        readModels.computeIfAbsent(entityIdentifier, id -> new CopyOnWriteArrayList<>()).remove(weakReference);
+        readModels.entrySet().removeIf(entry -> entry.getValue().isEmpty());
     }
 }

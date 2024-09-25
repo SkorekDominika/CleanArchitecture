@@ -2,16 +2,21 @@ package com.gra.recist.domain.event;
 
 import com.gra.recist.domain.repository.Entity;
 
-public class EntityModified<T extends Entity> implements IEvent<T> {
+public class EntityModified implements IEvent {
 
-    private final T entity;
+    private final Entity entity;
 
-    public EntityModified(T entity) {
+    public EntityModified(Entity entity) {
         this.entity = entity;
     }
 
     @Override
-    public T getEntity() {
+    public Entity getEntity() {
         return entity;
+    }
+
+    @Override
+    public boolean isGlobal() {
+        return false;
     }
 }

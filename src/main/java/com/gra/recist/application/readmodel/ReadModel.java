@@ -6,5 +6,5 @@ import com.gra.recist.domain.repository.Entity;
 import com.gra.recist.domain.repository.EntityIdentifier;
 
 public interface ReadModel<T extends Entity> {
-    void dispatchEvent(IEvent<T> event);
+    void dispatchEvent(IEvent event);
 }

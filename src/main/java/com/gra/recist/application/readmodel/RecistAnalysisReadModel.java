@@ -20,15 +20,18 @@ public class RecistAnalysisReadModel implements ReadModel<RecistAnalysis> {
     }
 
     @Override
-    public void dispatchEvent(IEvent<RecistAnalysis> event) {
+    public void dispatchEvent(IEvent event) {
         switch (event) {
-            case EntityModified<RecistAnalysis> entityModified -> update(entityModified);
+            case EntityModified entityModified -> update(entityModified);
             default -> throw new UnsupportedOperationException("Unhandled event: %s exception".formatted(event));
         }
     }
 
-    private void update(IEvent<RecistAnalysis> event) {
-        RecistAnalysis recistAnalysis = event.getEntity();
-        name.setValue(recistAnalysis.getName());
+    private void update(IEvent event) {
+        if (event.getEntity() instanceof RecistAnalysis recistAnalysis) {
+            name.setValue(recistAnalysis.getName());
+        } else {
+            System.out.println("Entity is not a RecistAnalysis!");
+        }
     }
 }

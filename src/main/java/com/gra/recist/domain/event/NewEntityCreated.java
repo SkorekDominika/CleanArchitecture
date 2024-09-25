@@ -2,7 +2,7 @@ package com.gra.recist.domain.event;
 
 import com.gra.recist.domain.repository.Entity;
 
-public class NewEntityCreated<T extends Entity> implements IEvent<T> {
+public class NewEntityCreated<T extends Entity> implements IEvent {
     private final T entity;
 
     public NewEntityCreated(T entity) {
@@ -12,5 +12,10 @@ public class NewEntityCreated<T extends Entity> implements IEvent<T> {
     @Override
     public T getEntity() {
         return entity;
+    }
+
+    @Override
+    public boolean isGlobal() {
+        return true;
     }
 }
