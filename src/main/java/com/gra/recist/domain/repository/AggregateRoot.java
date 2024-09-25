@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class AggregateRoot extends Entity {
-    private List<IEvent> events;
+    private transient List<IEvent> events;
 
     public AggregateRoot() {
         this.events = new ArrayList<>();

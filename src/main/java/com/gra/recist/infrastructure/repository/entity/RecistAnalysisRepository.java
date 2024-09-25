@@ -1,6 +1,7 @@
 package com.gra.recist.infrastructure.repository.entity;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.gra.recist.application.repository.Repository;
 import com.gra.recist.domain.model.RecistAnalysis;
 import com.gra.recist.infrastructure.notification.MessageBroker;
@@ -8,6 +9,7 @@ import com.gra.recist.infrastructure.storage.EntityCache;
 
 import java.util.UUID;
 
+@Singleton
 public class RecistAnalysisRepository implements Repository<RecistAnalysis> {
 
     @Inject

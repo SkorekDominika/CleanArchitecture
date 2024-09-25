@@ -33,13 +33,17 @@ public class MessageBroker {
     private Thread createCleanerThread() {
         return new Thread(() -> {
             while (true) {
-                cleanUpReferences();
+                try {
+                    cleanUpReferences();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }
 
-    private void cleanUpReferences() {
-        Reference<? extends ReadModel<? extends Entity>> toClean = referenceQueue.poll();
+    private void cleanUpReferences() throws InterruptedException {
+        Reference<? extends ReadModel<? extends Entity>> toClean = referenceQueue.remove();
         Optional.ofNullable(referenceCleaners.remove(toClean)).ifPresent(Runnable::run);
     }
 
