@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<HBox alignment="CENTER_LEFT" spacing="4.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gra.recist.presentation.studyopener.StudyFile">
+    <children>
+        <Group>
+            <children>
+                <SVGPath
+                        content="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Z"
+                        scaleX="0.02" scaleY="0.02" scaleZ="0.02" style="-fx-fill: #4968DA;"/>
+            </children>
+        </Group>
+        <Label fx:id="patientNameLabel"/>
+    </children>
+    <padding>
+        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0"/>
+    </padding>
+</HBox>
