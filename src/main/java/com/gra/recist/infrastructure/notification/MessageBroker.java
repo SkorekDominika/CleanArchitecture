@@ -3,8 +3,8 @@ package com.gra.recist.infrastructure.notification;
 import com.google.inject.Singleton;
 import com.gra.recist.application.readmodel.ReadModel;
 import com.gra.recist.domain.event.IEvent;
-import com.gra.recist.domain.repository.Entity;
-import com.gra.recist.domain.repository.EntityIdentifier;
+import com.gra.recist.domain.common.Entity;
+import com.gra.recist.domain.common.EntityIdentifier;
 
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
@@ -12,7 +12,6 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -56,8 +55,8 @@ public class MessageBroker {
     }
 
     private static EntityIdentifier createEntityIdentifier(IEvent event) {
-        Entity entity = event.getEntity();
-        UUID id = event.isGlobal() ? null : entity.getId();
+        Entity<?> entity = event.getEntity();
+        Object id = event.isGlobal() ? null : entity.getId();
         return new EntityIdentifier(entity.getClass(), id);
     }
 

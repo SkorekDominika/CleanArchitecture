@@ -1,21 +1,16 @@
-package com.gra.recist.domain.repository;
+package com.gra.recist.domain.common;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.UUID;
 
-public class Entity implements Serializable {
-    private final UUID id;
+public class Entity<ID> implements Serializable {
+    private final ID id;
 
-    public Entity() {
-        this.id = UUID.randomUUID();
-    }
-
-    public Entity(UUID id) {
+    public Entity(ID id) {
         this.id = id;
     }
 
-    public UUID getId() {
+    public ID getId() {
         return id;
     }
 
@@ -23,7 +18,7 @@ public class Entity implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Entity entity = (Entity) o;
+        Entity<?> entity = (Entity<?>) o;
         return Objects.equals(id, entity.id);
     }
 

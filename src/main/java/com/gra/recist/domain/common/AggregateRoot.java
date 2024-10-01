@@ -1,4 +1,4 @@
-package com.gra.recist.domain.repository;
+package com.gra.recist.domain.common;
 
 import com.gra.recist.domain.event.IEvent;
 
@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public abstract class AggregateRoot extends Entity {
+public abstract class AggregateRoot<ID> extends Entity<ID> {
     private transient List<IEvent> events;
 
-    public AggregateRoot() {
+    public AggregateRoot(ID id) {
+        super(id);
         this.events = new ArrayList<>();
     }
 

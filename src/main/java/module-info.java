@@ -3,4 +3,5 @@ open module com.gra.recist {
     requires javafx.fxml;
     requires com.google.guice;
     requires org.apache.commons.lang3;
+    requires com.github.benmanes.caffeine;
 }

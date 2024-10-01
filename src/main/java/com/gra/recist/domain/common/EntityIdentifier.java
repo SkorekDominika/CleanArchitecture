@@ -1,13 +1,13 @@
-package com.gra.recist.domain.repository;
+package com.gra.recist.domain.common;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public class EntityIdentifier{
     private final Class<? extends Entity> clazz;
 
-    private final UUID uuid;
-    public EntityIdentifier(Class<? extends Entity> clazz, UUID uuid) {
+    private final Object uuid;
+
+    public EntityIdentifier(Class<? extends Entity> clazz, Object uuid) {
         this.clazz = clazz;
         this.uuid = uuid;
     }
@@ -16,7 +16,7 @@ public class EntityIdentifier{
         return clazz;
     }
 
-    public UUID getUuid() {
+    public Object getUuid() {
         return uuid;
     }
 

@@ -1,6 +1,6 @@
 package com.gra.recist.domain.event;
 
-import com.gra.recist.domain.repository.Entity;
+import com.gra.recist.domain.common.Entity;
 
 public class NewEntityCreated<T extends Entity> implements IEvent {
     private final T entity;
