@@ -29,8 +29,11 @@ public class StudyService {
                 .buildAsync(dicomDataRepository::read);
     }
 
-    public List<CompletableFuture<DicomData>> loadStudy(DicomDataSource dataSource) {
-        List<FrameId> frameIds = dicomDataRepository.getAllIds(dataSource);
-        return frameIds.stream().map(cache::get).collect(Collectors.toList());
+    public CompletableFuture<DicomData> loadStudy(FrameId frameId) {
+        return cache.get(frameId);
+    }
+
+    public List<FrameId> loadAllHeaders(DicomDataSource dataSource) {
+        return dicomDataRepository.getAllIds(dataSource);
     }
 }

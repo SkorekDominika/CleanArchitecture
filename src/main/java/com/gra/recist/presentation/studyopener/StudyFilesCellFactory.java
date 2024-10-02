@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 
 @Singleton
@@ -62,8 +63,9 @@ public class StudyFilesCellFactory implements Callback<ListView<PatientStudyData
 
     private void openStudyInNewWindow(ListView<PatientStudyData> param, ListCell<PatientStudyData> listCell) throws IOException {
         String patientName = listCell.getItem().patentName();
+        Path dataSource = listCell.getItem().studyPath();
 
-        List<Stage> views = hangingProtocolCoordinator.prepareViews(StudyPresenter.class, controller -> controller.setStudySource(patientName));
+        List<Stage> views = hangingProtocolCoordinator.prepareViews(StudyPresenter.class, controller -> controller.setStudySource(dataSource));
         views.forEach(view -> {
             view.setTitle(patientName);
             view.initOwner(param.getParent().getScene().getWindow());
