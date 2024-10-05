@@ -29,10 +29,10 @@ public class HangingProtocolCoordinator {
             hpScope.enter();
             return IntStream.range(0, hpInstances).mapToObj(idx -> {
                 try {
-                    MainFxLoader.ViewControllerReference<Parent, CONTROLLER> presenterReference = mainFxLoader.load(clazz);
-                    postConstruct.accept(presenterReference.controller());
                     Stage stage = new Stage();
+                    MainFxLoader.ViewControllerReference<Parent, CONTROLLER> presenterReference = mainFxLoader.load(stage, clazz);
                     stage.setScene(new Scene(presenterReference.viewNode(), 800, 500));
+                    postConstruct.accept(presenterReference.controller());
                     return stage;
                 } catch (IOException e) {
                     throw new RuntimeException(e);

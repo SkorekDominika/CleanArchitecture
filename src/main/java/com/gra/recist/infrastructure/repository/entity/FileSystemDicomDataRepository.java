@@ -14,9 +14,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 import java.util.stream.Stream;
 
 public class FileSystemDicomDataRepository implements DicomDataRepository {
+
+    private static final Random random = new Random();
     @Override
     public DicomData create(DicomData data) {
         throw new NotImplementedException();
@@ -25,6 +28,11 @@ public class FileSystemDicomDataRepository implements DicomDataRepository {
     @Override
     public DicomData read(FrameId frameId) {
 //        Path rootPath = Paths.get(frameId.dataSource().locator());
+        try {
+            Thread.sleep(random.nextInt(40) * 100);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return new DicomData(frameId);
     }
 

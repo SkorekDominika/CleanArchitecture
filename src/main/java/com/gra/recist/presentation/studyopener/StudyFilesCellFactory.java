@@ -36,7 +36,7 @@ public class StudyFilesCellFactory implements Callback<ListView<PatientStudyData
                     setGraphic(null);
                 } else {
                     try {
-                        ViewControllerReference<Parent, StudyFile> node = mainFxLoader.load(StudyFile.class);
+                        ViewControllerReference<Parent, StudyFile> node = mainFxLoader.load(param.getParent(), StudyFile.class);
                         StudyFile controller = node.controller();
                         controller.patientNameLabel.setText(data.patentName());
                         setGraphic(node.viewNode());
