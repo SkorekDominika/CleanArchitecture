@@ -1,4 +1,4 @@
-open module com.gra.recist {
+open module com.clean.arch {
     requires javafx.controls;
     requires javafx.fxml;
     requires com.google.guice;
