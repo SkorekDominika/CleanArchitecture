@@ -1,4 +1,4 @@
-package com.clean.arch.infrastructure.repository.entity;
+package com.clean.arch.infrastructure.repository;
 
 import com.clean.arch.domain.model.DicomData;
 import com.clean.arch.domain.model.valueobject.DicomDataSource;
