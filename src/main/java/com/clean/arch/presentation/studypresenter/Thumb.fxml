@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+<AnchorPane fx:id="thumbPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             onMouseClicked="#onSelected" prefHeight="140.0" prefWidth="110.0" style="-fx-background-color: #202225;"
             xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.clean.arch.presentation.studypresenter.Thumb">
@@ -29,6 +29,16 @@
                     </padding>
                 </HBox>
             </bottom>
+            <top>
+                <HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button fx:id="moreButton" alignment="CENTER" contentDisplay="TEXT_ONLY" mnemonicParsing="false"
+                                onMouseClicked="#onMoreButtonSelected" rotate="90.0"
+                                style="-fx-text-fill: #A1A2A5; -fx-background-color: transparent;" text="..."
+                                textAlignment="RIGHT"/>
+                    </children>
+                </HBox>
+            </top>
         </BorderPane>
     </children>
 </AnchorPane>

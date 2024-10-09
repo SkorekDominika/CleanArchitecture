@@ -2,7 +2,7 @@ package com.clean.arch.presentation.studypresenter;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import com.clean.arch.presentation.studypresenter.event.SeriesSelected;
+import com.clean.arch.presentation.studypresenter.command.SelectSeries;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,7 +28,7 @@ public class StudyPane implements Initializable {
     }
 
     @Handler
-    private void handleSeriesSelected(SeriesSelected seriesSelected) {
-        Platform.runLater(() -> seriesInstanceUIdLabel.setText(seriesSelected.seriesInstanceUid()));
+    private void handleSelectSeriesCommand(SelectSeries selectSeries) {
+        Platform.runLater(() -> seriesInstanceUIdLabel.setText(selectSeries.seriesInstanceUid()));
     }
 }

@@ -29,7 +29,10 @@ public class MainFxLoader {
             windowScope.enter(window);
             FXMLLoader fxmlLoader = new FXMLLoader(clazz.getResource(clazz.getSimpleName() + ".fxml"));
             fxmlLoader.setControllerFactory(injector::getInstance);
-            return new ViewControllerReference<>(fxmlLoader.load(), fxmlLoader.getController());
+            T fxmlObject = fxmlLoader.load();
+            CONTROLLER controller = fxmlLoader.getController();
+            fxmlObject.setUserData(controller); // Force JavaFx to keep the strong reference to the controller.
+            return new ViewControllerReference<>(fxmlObject, controller);
         } finally {
             windowScope.exit();
         }

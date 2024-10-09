@@ -5,6 +5,8 @@ import com.google.inject.Provides;
 import com.google.inject.name.Named;
 import com.clean.arch.infrastructure.di.scope.window.WindowScoped;
 import net.engio.mbassy.bus.MBassador;
+import net.engio.mbassy.bus.error.IPublicationErrorHandler;
+import net.engio.mbassy.bus.error.PublicationError;
 
 public class CommonModule extends AbstractModule {
 
@@ -12,7 +14,7 @@ public class CommonModule extends AbstractModule {
     @WindowScoped
     @Named("windowMQ")
     MBassador<Object> mBassador() {
-        return new MBassador<>();
+        return new MBassador<>(error -> System.out.println(error.toString()));
     }
 
 }
