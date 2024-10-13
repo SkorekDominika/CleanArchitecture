@@ -18,6 +18,10 @@ import java.io.IOException;
 
 public class StartApplication extends Application {
 
+    public static void main(String[] args) {
+        launch();
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         Injector injector = Guice.createInjector(new CommonModule(), new ScopeModule(), new AppServicesModule(), new PersistenceModule());
@@ -28,9 +32,5 @@ public class StartApplication extends Application {
         stage.setTitle("Exhibeon Demo");
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }

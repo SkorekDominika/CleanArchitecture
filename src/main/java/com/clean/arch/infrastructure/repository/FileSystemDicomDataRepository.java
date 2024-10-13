@@ -20,6 +20,7 @@ import java.util.stream.Stream;
 public class FileSystemDicomDataRepository implements DicomDataRepository {
 
     private static final Random random = new Random();
+
     @Override
     public DicomData create(DicomData data) {
         throw new NotImplementedException();

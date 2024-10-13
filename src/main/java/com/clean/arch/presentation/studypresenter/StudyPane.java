@@ -15,11 +15,11 @@ import java.util.ResourceBundle;
 
 public class StudyPane implements Initializable {
 
+    @FXML
+    public Label seriesInstanceUIdLabel;
     @Inject
     @Named("windowMQ")
     MBassador<Object> mBassador;
-    @FXML
-    public Label seriesInstanceUIdLabel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

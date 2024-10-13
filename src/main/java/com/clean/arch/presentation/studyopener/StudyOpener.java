@@ -12,6 +12,10 @@ import java.util.List;
 public class StudyOpener {
 
     List<PatientStudyData> PATIENTS;
+    @FXML
+    ListView<PatientStudyData> studiesFilesList;
+    @Inject
+    private StudyFilesCellFactory studyFilesCellFactory;
 
     {
         try {
@@ -23,14 +27,6 @@ public class StudyOpener {
             throw new RuntimeException(e);
         }
     }
-
-
-    @FXML
-    ListView<PatientStudyData> studiesFilesList;
-
-    @Inject
-    private StudyFilesCellFactory studyFilesCellFactory;
-
 
     @FXML
     public void initialize() {

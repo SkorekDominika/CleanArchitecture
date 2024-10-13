@@ -9,13 +9,13 @@ public final class DicomDataSource implements ValueObject {
     private final SourceType sourceType;
     private final String locator;
 
-    public static DicomDataSource createForFileSystem(Path path) {
-        return new DicomDataSource(SourceType.FILESYSTEM, path.toString());
-    }
-
     private DicomDataSource(SourceType sourceType, String locator) {
         this.sourceType = sourceType;
         this.locator = locator;
+    }
+
+    public static DicomDataSource createForFileSystem(Path path) {
+        return new DicomDataSource(SourceType.FILESYSTEM, path.toString());
     }
 
     public SourceType sourceType() {

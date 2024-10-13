@@ -2,7 +2,7 @@ package com.clean.arch.domain.common;
 
 import java.util.Objects;
 
-public class EntityIdentifier{
+public class EntityIdentifier {
     private final Class<? extends Entity> clazz;
 
     private final Object uuid;

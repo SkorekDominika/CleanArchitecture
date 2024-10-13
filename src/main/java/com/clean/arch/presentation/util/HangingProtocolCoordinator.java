@@ -15,14 +15,12 @@ import java.util.stream.IntStream;
 
 public class HangingProtocolCoordinator {
 
+    private final int hpInstances = 2;
     @Inject
     @Named("hangingProtocolScope")
     private HangingProtocolScope hpScope;
-
     @Inject
     private MainFxLoader mainFxLoader;
-
-    private final int hpInstances = 2;
 
     public <CONTROLLER> List<Stage> prepareViews(Class<CONTROLLER> clazz, Consumer<CONTROLLER> postConstruct) throws IOException {
         try {

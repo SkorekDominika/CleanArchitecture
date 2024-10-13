@@ -29,6 +29,12 @@ public class MessageBroker {
         cleanerThread.start();
     }
 
+    private static EntityIdentifier createEntityIdentifier(IEvent event) {
+        Entity<?> entity = event.getEntity();
+        Object id = event.isGlobal() ? null : entity.getId();
+        return new EntityIdentifier(entity.getClass(), id);
+    }
+
     private Thread createCleanerThread() {
         return new Thread(() -> {
             while (true) {
@@ -52,12 +58,6 @@ public class MessageBroker {
                 .ifPresent(weakReferences -> weakReferences.forEach(reference ->
                         Optional.ofNullable(reference.get())
                                 .ifPresent(readModel -> readModel.dispatchEvent(event))));
-    }
-
-    private static EntityIdentifier createEntityIdentifier(IEvent event) {
-        Entity<?> entity = event.getEntity();
-        Object id = event.isGlobal() ? null : entity.getId();
-        return new EntityIdentifier(entity.getClass(), id);
     }
 
     public void subscribe(EntityIdentifier entityIdentifier, ReadModel<? extends Entity> readModel) {

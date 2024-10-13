@@ -33,13 +33,12 @@ public class StudyPresenter implements Initializable {
     @FXML
     public VBox thumbPanel;
     @Inject
+    StudyService studyService;
+    @Inject
     private MainFxLoader mainFxLoader;
     @Inject
     @Named("windowMQ")
     private MBassador<Object> mBassador;
-
-    @Inject
-    StudyService studyService;
     private Consumer<IApplicationEvent> studyServiceEventConsumer;
 
     @Override
