@@ -1,7 +1,6 @@
 package com.clean.arch.presentation.studypresenter;
 
 import com.clean.arch.application.service.StudyService;
-import com.clean.arch.domain.model.DicomData;
 import com.clean.arch.domain.model.valueobject.FrameId;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -18,10 +17,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.concurrent.CompletableFuture;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class StudyPane implements Initializable {
 
@@ -35,7 +32,8 @@ public class StudyPane implements Initializable {
 
     @Inject
     StudyService studyService;
-    private Set<FrameId> frameIds;
+    private List<FrameId> frameIds;
+    private FrameId currentFrame;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -44,9 +42,9 @@ public class StudyPane implements Initializable {
     }
 
     public void visualizeFrames(Set<FrameId> frameIds) {
-        this.frameIds = frameIds;
-        FrameId frameId = frameIds.stream().findFirst().orElseThrow(() -> new IllegalStateException("No frames to show!"));
-        visualizeStudyData(frameId);
+        this.frameIds = frameIds.stream().sorted(Comparator.comparing(FrameId::sopInstanceId)).collect(Collectors.toList());
+        currentFrame = frameIds.stream().findFirst().orElseThrow(() -> new IllegalStateException("No frames to show!"));
+        visualizeStudyData(currentFrame);
     }
 
     public void visualizeStudyData(FrameId frameId) {
@@ -59,5 +57,22 @@ public class StudyPane implements Initializable {
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    public void onScroll(ScrollEvent scrollEvent) {
+        int currentIdx = frameIds.indexOf(currentFrame);
+        int nextIdx = currentIdx;
+        if (scrollEvent.getDeltaY() > 1) {
+            if (currentIdx < frameIds.size() - 1) {
+                nextIdx = currentIdx + 1;
+            }
+        } else {
+            if (currentIdx > 0) {
+                nextIdx = currentIdx - 1;
+            }
+        }
+        FrameId newFrameId = frameIds.get(nextIdx);
+        currentFrame = newFrameId;
+        visualizeStudyData(currentFrame);
     }
 }

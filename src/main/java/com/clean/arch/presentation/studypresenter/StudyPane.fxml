@@ -10,9 +10,13 @@
         <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                    AnchorPane.topAnchor="0.0">
             <children>
-                <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
+                <ImageView fx:id="imageView" fitHeight="450.0" fitWidth="500.0" pickOnBounds="true"
                            preserveRatio="true"/>
-                <Label fx:id="seriesInstanceUIdLabel" style="-fx-text-fill: #A1A2A5;"/>
+                <VBox>
+                    <children>
+                        <Label fx:id="seriesInstanceUIdLabel" style="-fx-text-fill: #A1A2A5;"/>
+                    </children>
+                </VBox>
             </children>
         </StackPane>
     </children>
