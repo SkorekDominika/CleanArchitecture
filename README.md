@@ -54,6 +54,8 @@ The **Infrastructure Layer** handles communication with external systems (e.g., 
 **Incremental Loading** enables the system to load data in small chunks consisting of single dicom files.
 This allows for faster presentation of existing data.
 
+![concept diagram](doc/images/clean_architecture-concept_view.png)
+
 ### Performance Optimization
 
 Multiple views created for the same study context present the same cached study
