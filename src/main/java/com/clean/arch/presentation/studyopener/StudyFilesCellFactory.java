@@ -6,15 +6,14 @@ import com.clean.arch.presentation.util.MainFxLoader;
 import com.clean.arch.presentation.util.MainFxLoader.ViewControllerReference;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
 import javafx.scene.Parent;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.List;
 
 @Singleton
 public class StudyFilesCellFactory

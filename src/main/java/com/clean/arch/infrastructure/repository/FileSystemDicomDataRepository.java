@@ -4,8 +4,6 @@ import com.clean.arch.domain.model.DicomData;
 import com.clean.arch.domain.model.valueobject.DicomDataSource;
 import com.clean.arch.domain.model.valueobject.FrameId;
 import com.clean.arch.domain.repository.DicomDataRepository;
-import org.apache.commons.lang3.NotImplementedException;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -17,6 +15,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 import java.util.stream.Stream;
+import org.apache.commons.lang3.NotImplementedException;
 
 public class FileSystemDicomDataRepository implements DicomDataRepository {
 

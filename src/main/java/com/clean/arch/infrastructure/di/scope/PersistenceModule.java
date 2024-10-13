@@ -8,9 +8,9 @@ import com.google.inject.Singleton;
 
 public class PersistenceModule extends AbstractModule {
 
-    @Provides
-    @Singleton
-    DicomDataRepository dicomDataRepository() {
-        return new FileSystemDicomDataRepository();
-    }
+  @Provides
+  @Singleton
+  DicomDataRepository dicomDataRepository() {
+    return new FileSystemDicomDataRepository();
+  }
 }

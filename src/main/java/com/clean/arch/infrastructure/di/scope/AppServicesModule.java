@@ -12,17 +12,17 @@ import java.util.concurrent.Executors;
 
 public class AppServicesModule extends AbstractModule {
 
-    @Provides
-    @Named("backendTP")
-    ExecutorService backendExecutors() {
-        return Executors.newCachedThreadPool();
-    }
+  @Provides
+  @Named("backendTP")
+  ExecutorService backendExecutors() {
+    return Executors.newCachedThreadPool();
+  }
 
-    @Provides
-    @HangingProtocolScoped
-    StudyService studyService(
-            DicomDataRepository dicomDataRepository,
-            @Named("backendTP") ExecutorService backendExecutors) {
-        return new StudyService(dicomDataRepository, backendExecutors);
-    }
+  @Provides
+  @HangingProtocolScoped
+  StudyService studyService(
+      DicomDataRepository dicomDataRepository,
+      @Named("backendTP") ExecutorService backendExecutors) {
+    return new StudyService(dicomDataRepository, backendExecutors);
+  }
 }

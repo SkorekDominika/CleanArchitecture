@@ -7,13 +7,13 @@ import java.util.function.Consumer;
 
 public class ObservableService<T> {
 
-    private final Set<Consumer<T>> weakConsumers = Collections.newSetFromMap(new WeakHashMap<>());
+  private final Set<Consumer<T>> weakConsumers = Collections.newSetFromMap(new WeakHashMap<>());
 
-    public void subscribe(Consumer<T> consumer) {
-        weakConsumers.add(consumer);
-    }
+  public void subscribe(Consumer<T> consumer) {
+    weakConsumers.add(consumer);
+  }
 
-    protected void notify(T event) {
-        weakConsumers.forEach(c -> c.accept(event));
-    }
+  protected void notify(T event) {
+    weakConsumers.forEach(c -> c.accept(event));
+  }
 }

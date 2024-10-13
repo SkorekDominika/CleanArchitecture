@@ -7,20 +7,20 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class AggregateRoot<ID> extends Entity<ID> {
-    private transient List<IEvent> events;
+  private transient List<IEvent> events;
 
-    public AggregateRoot(ID id) {
-        super(id);
-        this.events = new ArrayList<>();
-    }
+  public AggregateRoot(ID id) {
+    super(id);
+    this.events = new ArrayList<>();
+  }
 
-    protected void sendEvent(IEvent event) {
-        this.events.add(event);
-    }
+  protected void sendEvent(IEvent event) {
+    this.events.add(event);
+  }
 
-    public void drainEvents(Consumer<IEvent> consumer) {
-        List<IEvent> oldEvents = events;
-        events = new ArrayList<>();
-        oldEvents.forEach(consumer);
-    }
+  public void drainEvents(Consumer<IEvent> consumer) {
+    List<IEvent> oldEvents = events;
+    events = new ArrayList<>();
+    oldEvents.forEach(consumer);
+  }
 }

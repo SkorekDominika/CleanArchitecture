@@ -1,13 +1,12 @@
 package com.clean.arch.presentation.studyopener;
 
 import com.google.inject.Inject;
-import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 
 public class StudyOpener {
 

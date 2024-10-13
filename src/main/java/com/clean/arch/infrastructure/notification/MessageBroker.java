@@ -5,7 +5,6 @@ import com.clean.arch.domain.common.Entity;
 import com.clean.arch.domain.common.EntityIdentifier;
 import com.clean.arch.domain.event.IEvent;
 import com.google.inject.Singleton;
-
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;

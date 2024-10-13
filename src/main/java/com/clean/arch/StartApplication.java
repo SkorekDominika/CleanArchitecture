@@ -9,12 +9,11 @@ import com.clean.arch.presentation.util.MainFxLoader;
 import com.clean.arch.presentation.util.MainFxLoader.ViewControllerReference;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class StartApplication extends Application {
 

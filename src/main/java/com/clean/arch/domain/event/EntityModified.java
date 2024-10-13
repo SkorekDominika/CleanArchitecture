@@ -4,19 +4,19 @@ import com.clean.arch.domain.common.Entity;
 
 public class EntityModified implements IEvent {
 
-    private final Entity entity;
+  private final Entity entity;
 
-    public EntityModified(Entity entity) {
-        this.entity = entity;
-    }
+  public EntityModified(Entity entity) {
+    this.entity = entity;
+  }
 
-    @Override
-    public Entity getEntity() {
-        return entity;
-    }
+  @Override
+  public Entity getEntity() {
+    return entity;
+  }
 
-    @Override
-    public boolean isGlobal() {
-        return false;
-    }
+  @Override
+  public boolean isGlobal() {
+    return false;
+  }
 }

@@ -4,6 +4,12 @@ import com.clean.arch.application.service.StudyService;
 import com.clean.arch.domain.model.valueobject.FrameId;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.*;
+import java.util.stream.Collectors;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,13 +18,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import net.engio.mbassy.bus.MBassador;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.*;
-import java.util.stream.Collectors;
 
 public class StudyPane implements Initializable {
 

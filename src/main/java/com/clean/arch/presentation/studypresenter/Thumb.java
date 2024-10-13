@@ -6,6 +6,9 @@ import com.clean.arch.presentation.studypresenter.command.DuplicateSeries;
 import com.clean.arch.presentation.studypresenter.command.VisualizeSeries;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import java.net.URL;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -19,10 +22,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import net.engio.mbassy.bus.MBassador;
-
-import java.net.URL;
-import java.util.*;
-import java.util.concurrent.CompletableFuture;
 
 public class Thumb implements Initializable {
 
