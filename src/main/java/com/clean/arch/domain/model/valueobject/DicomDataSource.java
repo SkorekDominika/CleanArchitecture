@@ -1,6 +1,7 @@
 package com.clean.arch.domain.model.valueobject;
 
 import com.clean.arch.domain.common.ValueObject;
+
 import java.nio.file.Path;
 import java.util.Objects;
 

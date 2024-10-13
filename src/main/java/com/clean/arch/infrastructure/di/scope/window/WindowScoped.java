@@ -12,4 +12,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({TYPE, METHOD})
 @Retention(RUNTIME)
 @ScopeAnnotation
-public @interface WindowScoped {}
+public @interface WindowScoped {
+}

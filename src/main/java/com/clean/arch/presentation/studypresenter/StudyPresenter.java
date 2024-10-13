@@ -12,6 +12,14 @@ import com.clean.arch.presentation.studypresenter.event.FrameProvided;
 import com.clean.arch.presentation.util.MainFxLoader;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.layout.VBox;
+import net.engio.mbassy.bus.MBassador;
+import net.engio.mbassy.listener.Handler;
+
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -21,13 +29,6 @@ import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import javafx.application.Platform;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.layout.VBox;
-import net.engio.mbassy.bus.MBassador;
-import net.engio.mbassy.listener.Handler;
 
 public class StudyPresenter implements Initializable {
 

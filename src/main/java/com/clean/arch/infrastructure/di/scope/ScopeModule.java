@@ -10,24 +10,24 @@ import com.google.inject.name.Named;
 
 public class ScopeModule extends AbstractModule {
 
-  private final HangingProtocolScope hpScope = new HangingProtocolScope();
-  private final WindowScope windowScope = new WindowScope();
+    private final HangingProtocolScope hpScope = new HangingProtocolScope();
+    private final WindowScope windowScope = new WindowScope();
 
-  @Override
-  protected void configure() {
-    bindScope(HangingProtocolScoped.class, hpScope);
-    bindScope(WindowScoped.class, windowScope);
-  }
+    @Override
+    protected void configure() {
+        bindScope(HangingProtocolScoped.class, hpScope);
+        bindScope(WindowScoped.class, windowScope);
+    }
 
-  @Provides
-  @Named("hangingProtocolScope")
-  HangingProtocolScope provideHangingProtocolScope() {
-    return hpScope;
-  }
+    @Provides
+    @Named("hangingProtocolScope")
+    HangingProtocolScope provideHangingProtocolScope() {
+        return hpScope;
+    }
 
-  @Provides
-  @Named("windowScope")
-  WindowScope provideWindowScope() {
-    return windowScope;
-  }
+    @Provides
+    @Named("windowScope")
+    WindowScope provideWindowScope() {
+        return windowScope;
+    }
 }

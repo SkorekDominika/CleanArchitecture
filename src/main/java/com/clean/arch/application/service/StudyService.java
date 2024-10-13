@@ -9,6 +9,8 @@ import com.clean.arch.domain.model.valueobject.FrameId;
 import com.clean.arch.domain.repository.DicomDataRepository;
 import com.github.benmanes.caffeine.cache.AsyncLoadingCache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import org.apache.commons.lang3.tuple.Pair;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +19,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.tuple.Pair;
 
 public class StudyService extends ObservableService<IApplicationEvent> {
 

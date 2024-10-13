@@ -8,10 +8,10 @@ import net.engio.mbassy.bus.MBassador;
 
 public class CommonModule extends AbstractModule {
 
-  @Provides
-  @WindowScoped
-  @Named("windowMQ")
-  MBassador<Object> mBassador() {
-    return new MBassador<>(error -> System.out.println(error.toString()));
-  }
+    @Provides
+    @WindowScoped
+    @Named("windowMQ")
+    MBassador<Object> mBassador() {
+        return new MBassador<>(error -> System.out.println(error.toString()));
+    }
 }

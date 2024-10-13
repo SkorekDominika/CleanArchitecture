@@ -5,5 +5,6 @@ import javafx.scene.control.Label;
 
 public class StudyFile {
 
-  @FXML Label patientNameLabel;
+    @FXML
+    Label patientNameLabel;
 }
