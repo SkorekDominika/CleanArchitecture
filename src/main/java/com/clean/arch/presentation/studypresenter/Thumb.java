@@ -51,9 +51,7 @@ public class Thumb implements Initializable {
         System.out.println("Thumb:" + Objects.toIdentityString(mBassador));
     }
 
-    public void setDicomData(
-            String seriesInstanceUid,
-            Map<FrameId, CompletableFuture<DicomData>> loadingDicomDataByFrameId) {
+    public void setDicomData(String seriesInstanceUid, Map<FrameId, CompletableFuture<DicomData>> loadingDicomDataByFrameId) {
         frameIds = loadingDicomDataByFrameId.keySet();
         Collection<CompletableFuture<DicomData>> loadingDicomData = loadingDicomDataByFrameId.values();
 
@@ -90,8 +88,8 @@ public class Thumb implements Initializable {
     }
 
     private static class Counter {
-        int total;
-        SimpleIntegerProperty counter;
+        private final int total;
+        private final SimpleIntegerProperty counter;
 
         public Counter(int total) {
             this.total = total;

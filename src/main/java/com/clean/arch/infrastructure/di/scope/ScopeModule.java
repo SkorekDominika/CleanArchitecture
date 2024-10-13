@@ -6,7 +6,6 @@ import com.clean.arch.infrastructure.di.scope.window.WindowScope;
 import com.clean.arch.infrastructure.di.scope.window.WindowScoped;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import com.google.inject.name.Named;
 
 public class ScopeModule extends AbstractModule {
 
@@ -20,13 +19,11 @@ public class ScopeModule extends AbstractModule {
     }
 
     @Provides
-    @Named("hangingProtocolScope")
     HangingProtocolScope provideHangingProtocolScope() {
         return hpScope;
     }
 
     @Provides
-    @Named("windowScope")
     WindowScope provideWindowScope() {
         return windowScope;
     }

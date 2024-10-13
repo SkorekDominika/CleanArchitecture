@@ -13,7 +13,6 @@ import java.io.IOException;
 public class MainFxLoader {
 
     @Inject
-    @Named("windowScope")
     private WindowScope windowScope;
 
     @Inject
@@ -32,8 +31,7 @@ public class MainFxLoader {
             fxmlLoader.setControllerFactory(injector::getInstance);
             T fxmlObject = fxmlLoader.load();
             CONTROLLER controller = fxmlLoader.getController();
-            fxmlObject.setUserData(
-                    controller); // Force JavaFx to keep the strong reference to the controller.
+            fxmlObject.setUserData(controller); // Force JavaFx to keep the strong reference to the controller.
             return new ViewControllerReference<>(fxmlObject, controller);
         } finally {
             windowScope.exit();

@@ -7,6 +7,10 @@ import com.google.inject.Scope;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Handles creation of objects annotated with {@link HangingProtocolScoped} providing the same
+ * instances within windows created in hanging protocol by {@link com.clean.arch.presentation.util.HangingProtocolCoordinator}
+ */
 public class HangingProtocolScope implements Scope {
 
     private final ThreadLocal<Map<Key<?>, Object>> scopedObjects = new ThreadLocal<>();

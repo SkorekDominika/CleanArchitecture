@@ -8,7 +8,6 @@ import com.clean.arch.domain.model.valueobject.DicomDataSource;
 import com.clean.arch.domain.model.valueobject.FrameId;
 import com.clean.arch.presentation.studypresenter.command.DuplicateSeries;
 import com.clean.arch.presentation.studypresenter.command.VisualizeSeries;
-import com.clean.arch.presentation.studypresenter.event.FrameProvided;
 import com.clean.arch.presentation.util.MainFxLoader;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -22,7 +21,6 @@ import net.engio.mbassy.listener.Handler;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -48,19 +46,13 @@ public class StudyPresenter implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mBassador.subscribe(this);
-        studyServiceEventConsumer = event -> {
-            switch (event) {
-                case SeriesDuplicatedEvent e -> addThumb(e.seriesInstanceId(), e.duplicatedFrames());
-                default -> {
-                }
-            }
-        };
+        // We need to have strong reference to the consumer to prevent garbage collecting
+        studyServiceEventConsumer = this::applicationEventHandler;
         studyService.subscribe(studyServiceEventConsumer);
         System.out.println(System.identityHashCode(studyService));
     }
 
-    public void setStudySource(Path dataPath) {
-        DicomDataSource dataSource = DicomDataSource.createForFileSystem(dataPath);
+    public void setStudySource(DicomDataSource dataSource) {
         List<FrameId> frameIds = studyService.loadAllHeaders(dataSource);
         Map<String, List<FrameId>> framesBySeries = frameIds.stream().collect(Collectors.groupingBy(FrameId::seriesInstanceId));
 
@@ -93,8 +85,13 @@ public class StudyPresenter implements Initializable {
     @Handler
     private void handleVisualizeSeries(VisualizeSeries visualizeSeries) {
         studyPaneController.visualizeFrames(visualizeSeries.series());
-        FrameId firstFrameId = visualizeSeries.series().stream().findFirst().orElseThrow(() -> new IllegalStateException("No image data!"));
-        CompletableFuture<DicomData> dicomDataCompletableFuture = studyService.loadStudy(firstFrameId);
-        mBassador.publish(new FrameProvided(dicomDataCompletableFuture));
+    }
+
+    private void applicationEventHandler(IApplicationEvent event) {
+        switch (event) {
+            case SeriesDuplicatedEvent e -> addThumb(e.seriesInstanceId(), e.duplicatedFrames());
+            default -> {
+            }
+        }
     }
 }

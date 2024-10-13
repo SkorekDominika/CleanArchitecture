@@ -26,15 +26,15 @@ import java.util.stream.Collectors;
 public class StudyPane implements Initializable {
 
     @FXML
-    public Label seriesInstanceUIdLabel;
+    private Label seriesInstanceUIdLabel;
     @FXML
-    public ImageView imageView;
+    private ImageView imageView;
     @Inject
     @Named("windowMQ")
-    MBassador<Object> mBassador;
+    private MBassador<Object> mBassador;
 
     @Inject
-    StudyService studyService;
+    private StudyService studyService;
     private List<FrameId> frameIds;
     private FrameId currentFrame;
 
@@ -50,7 +50,7 @@ public class StudyPane implements Initializable {
         visualizeStudyData(currentFrame);
     }
 
-    public void visualizeStudyData(FrameId frameId) {
+    private void visualizeStudyData(FrameId frameId) {
         studyService.loadStudy(frameId).thenAccept(dicomData -> {
             byte[] imageRawData = dicomData.getImage();
             try (InputStream is = new ByteArrayInputStream(imageRawData)) {
@@ -62,7 +62,8 @@ public class StudyPane implements Initializable {
         });
     }
 
-    public void onScroll(ScrollEvent scrollEvent) {
+    @FXML
+    private void onScroll(ScrollEvent scrollEvent) {
         int currentIdx = frameIds.indexOf(currentFrame);
         int nextIdx = currentIdx;
         if (scrollEvent.getDeltaY() > 1) {

@@ -2,7 +2,6 @@ package com.clean.arch.presentation.util;
 
 import com.clean.arch.infrastructure.di.scope.hp.HangingProtocolScope;
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -13,12 +12,16 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * This class is responsible for creating and managing windows that belong to the same hanging protocol.
+ * It contains the logic for creating the appropriate number of windows based on the requirements of the protocol.
+ * The class ensures that the windows are properly initialized and managed throughout their lifecycle.
+ */
 public class HangingProtocolCoordinator {
 
     private final int hpInstances = 2;
 
     @Inject
-    @Named("hangingProtocolScope")
     private HangingProtocolScope hpScope;
 
     @Inject

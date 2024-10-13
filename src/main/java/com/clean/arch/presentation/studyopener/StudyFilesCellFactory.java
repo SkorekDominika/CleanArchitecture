@@ -1,5 +1,6 @@
 package com.clean.arch.presentation.studyopener;
 
+import com.clean.arch.domain.model.valueobject.DicomDataSource;
 import com.clean.arch.presentation.studypresenter.StudyPresenter;
 import com.clean.arch.presentation.util.HangingProtocolCoordinator;
 import com.clean.arch.presentation.util.MainFxLoader;
@@ -67,7 +68,7 @@ public class StudyFilesCellFactory
     private void openStudyInNewWindow(
             ListView<PatientStudyData> param, ListCell<PatientStudyData> listCell) throws IOException {
         String patientName = listCell.getItem().patentName();
-        Path dataSource = listCell.getItem().studyPath();
+        DicomDataSource dataSource = DicomDataSource.createForFileSystem(listCell.getItem().studyPath());
 
         List<Stage> views =
                 hangingProtocolCoordinator.prepareViews(

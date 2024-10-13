@@ -1,5 +1,6 @@
 package com.clean.arch.infrastructure.di.scope.window;
 
+import com.clean.arch.infrastructure.di.scope.hp.HangingProtocolScoped;
 import com.google.inject.Key;
 import com.google.inject.Provider;
 import com.google.inject.Scope;
@@ -9,6 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+/**
+ * Handles creation of objects annotated with {@link WindowScope} providing the same instances within window
+ */
 public class WindowScope implements Scope {
 
     private final ThreadLocal<Window> currentThreadStage = new ThreadLocal<>();
