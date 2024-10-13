@@ -1,9 +1,9 @@
 package com.clean.arch.presentation.util;
 
+import com.clean.arch.infrastructure.di.scope.window.WindowScope;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.name.Named;
-import com.clean.arch.infrastructure.di.scope.window.WindowScope;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Window;

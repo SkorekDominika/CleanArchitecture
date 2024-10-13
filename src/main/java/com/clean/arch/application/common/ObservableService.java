@@ -1,7 +1,5 @@
 package com.clean.arch.application.common;
 
-import com.clean.arch.application.common.IApplicationEvent;
-
 import java.util.Collections;
 import java.util.Set;
 import java.util.WeakHashMap;

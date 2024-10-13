@@ -1,8 +1,8 @@
 package com.clean.arch.presentation.util;
 
+import com.clean.arch.infrastructure.di.scope.hp.HangingProtocolScope;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import com.clean.arch.infrastructure.di.scope.hp.HangingProtocolScope;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

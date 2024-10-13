@@ -1,10 +1,10 @@
 package com.clean.arch.infrastructure.notification;
 
-import com.google.inject.Singleton;
 import com.clean.arch.application.readmodel.ReadModel;
-import com.clean.arch.domain.event.IEvent;
 import com.clean.arch.domain.common.Entity;
 import com.clean.arch.domain.common.EntityIdentifier;
+import com.clean.arch.domain.event.IEvent;
+import com.google.inject.Singleton;
 
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;

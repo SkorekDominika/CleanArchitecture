@@ -1,11 +1,11 @@
 package com.clean.arch.presentation.studyopener;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.clean.arch.presentation.studypresenter.StudyPresenter;
 import com.clean.arch.presentation.util.HangingProtocolCoordinator;
 import com.clean.arch.presentation.util.MainFxLoader;
 import com.clean.arch.presentation.util.MainFxLoader.ViewControllerReference;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import javafx.scene.Parent;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;

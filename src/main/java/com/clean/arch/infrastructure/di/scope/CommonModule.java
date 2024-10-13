@@ -1,12 +1,10 @@
 package com.clean.arch.infrastructure.di.scope;
 
+import com.clean.arch.infrastructure.di.scope.window.WindowScoped;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.name.Named;
-import com.clean.arch.infrastructure.di.scope.window.WindowScoped;
 import net.engio.mbassy.bus.MBassador;
-import net.engio.mbassy.bus.error.IPublicationErrorHandler;
-import net.engio.mbassy.bus.error.PublicationError;
 
 public class CommonModule extends AbstractModule {
 

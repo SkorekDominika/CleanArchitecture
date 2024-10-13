@@ -1,7 +1,5 @@
 package com.clean.arch;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 import com.clean.arch.infrastructure.di.scope.AppServicesModule;
 import com.clean.arch.infrastructure.di.scope.CommonModule;
 import com.clean.arch.infrastructure.di.scope.PersistenceModule;
@@ -9,6 +7,8 @@ import com.clean.arch.infrastructure.di.scope.ScopeModule;
 import com.clean.arch.presentation.studyopener.StudyOpener;
 import com.clean.arch.presentation.util.MainFxLoader;
 import com.clean.arch.presentation.util.MainFxLoader.ViewControllerReference;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

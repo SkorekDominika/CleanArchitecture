@@ -1,8 +1,8 @@
 package com.clean.arch.presentation.studypresenter;
 
+import com.clean.arch.presentation.studypresenter.command.SelectSeries;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import com.clean.arch.presentation.studypresenter.command.SelectSeries;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
