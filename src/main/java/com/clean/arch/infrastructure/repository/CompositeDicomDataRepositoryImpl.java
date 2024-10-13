@@ -49,7 +49,8 @@ public class CompositeDicomDataRepositoryImpl implements DicomDataRepository {
     }
 
     @Override
-    public List<DicomData> getAllBySourceAndStudyInstanceUid(DicomDataSource dataSource, String studyInstanceUid) {
+    public List<DicomData> getAllBySourceAndStudyInstanceUid(
+            DicomDataSource dataSource, String studyInstanceUid) {
         SourceType key = dataSource.sourceType();
         DicomDataRepository dataRepository = repositoryByDataSource.get(key);
         return dataRepository.getAllBySourceAndStudyInstanceUid(dataSource, studyInstanceUid);

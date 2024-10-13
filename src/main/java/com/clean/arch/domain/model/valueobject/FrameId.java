@@ -7,7 +7,6 @@ public record FrameId(
         String studyInstanceId,
         String seriesInstanceId,
         String sopInstanceId,
-        String frameId
-) implements ValueObject {
-
+        String frameId)
+        implements ValueObject {
 }

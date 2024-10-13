@@ -16,26 +16,33 @@ import java.util.stream.IntStream;
 public class HangingProtocolCoordinator {
 
     private final int hpInstances = 2;
+
     @Inject
     @Named("hangingProtocolScope")
     private HangingProtocolScope hpScope;
+
     @Inject
     private MainFxLoader mainFxLoader;
 
-    public <CONTROLLER> List<Stage> prepareViews(Class<CONTROLLER> clazz, Consumer<CONTROLLER> postConstruct) throws IOException {
+    public <CONTROLLER> List<Stage> prepareViews(
+            Class<CONTROLLER> clazz, Consumer<CONTROLLER> postConstruct) throws IOException {
         try {
             hpScope.enter();
-            return IntStream.range(0, hpInstances).mapToObj(idx -> {
-                try {
-                    Stage stage = new Stage();
-                    MainFxLoader.ViewControllerReference<Parent, CONTROLLER> presenterReference = mainFxLoader.load(stage, clazz);
-                    stage.setScene(new Scene(presenterReference.viewNode(), 800, 500));
-                    postConstruct.accept(presenterReference.controller());
-                    return stage;
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }).collect(Collectors.toList());
+            return IntStream.range(0, hpInstances)
+                    .mapToObj(
+                            idx -> {
+                                try {
+                                    Stage stage = new Stage();
+                                    MainFxLoader.ViewControllerReference<Parent, CONTROLLER> presenterReference =
+                                            mainFxLoader.load(stage, clazz);
+                                    stage.setScene(new Scene(presenterReference.viewNode(), 800, 500));
+                                    postConstruct.accept(presenterReference.controller());
+                                    return stage;
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            })
+                    .collect(Collectors.toList());
         } finally {
             hpScope.exit();
         }

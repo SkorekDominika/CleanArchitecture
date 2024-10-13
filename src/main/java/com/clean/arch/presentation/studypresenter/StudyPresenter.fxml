@@ -19,7 +19,7 @@
             <center>
                 <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #424447;"
                            BorderPane.alignment="CENTER">
-                    <fx:include source="StudyPane.fxml"/>
+                    <fx:include fx:id="studyPane" source="StudyPane.fxml"/>
                 </StackPane>
             </center>
         </BorderPane>

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
@@ -28,13 +29,19 @@ public class FileSystemDicomDataRepository implements DicomDataRepository {
 
     @Override
     public DicomData read(FrameId frameId) {
-//        Path rootPath = Paths.get(frameId.dataSource().locator());
+        String path = Paths.get(frameId.dataSource().locator(), frameId.seriesInstanceId(), frameId.sopInstanceId() + ".dcm").toString();
+        Properties properties = new Properties();
+        byte[] image;
         try {
+            properties.load(new FileInputStream(path));
+            image = Base64.getDecoder().decode(properties.getProperty("image"));
+
+            // fake loading time
             Thread.sleep(random.nextInt(40) * 100);
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return new DicomData(frameId);
+        return new DicomData(frameId, image);
     }
 
     @Override
@@ -54,20 +61,24 @@ public class FileSystemDicomDataRepository implements DicomDataRepository {
             return walk.map(Path::toFile)
                     .filter(File::isFile)
                     .filter(file -> file.getName().matches(".*\\.(dcm)|(DCM)"))
-                    .map(file -> {
-                        try {
-                            Properties properties = new Properties();
-                            properties.load(new FileInputStream(file));
-                            return properties;
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    })
-                    .map(properties -> new FrameId(dataSource,
-                            properties.getProperty("studyInstanceId"),
-                            properties.getProperty("seriesInstanceId"),
-                            properties.getProperty("sopInstanceId"),
-                            properties.getProperty("frameId")))
+                    .map(
+                            file -> {
+                                try {
+                                    Properties properties = new Properties();
+                                    properties.load(new FileInputStream(file));
+                                    return properties;
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            })
+                    .map(
+                            properties ->
+                                    new FrameId(
+                                            dataSource,
+                                            properties.getProperty("studyInstanceId"),
+                                            properties.getProperty("seriesInstanceId"),
+                                            properties.getProperty("sopInstanceId"),
+                                            properties.getProperty("frameId")))
                     .toList();
 
         } catch (IOException e) {
@@ -76,7 +87,8 @@ public class FileSystemDicomDataRepository implements DicomDataRepository {
     }
 
     @Override
-    public List<DicomData> getAllBySourceAndStudyInstanceUid(DicomDataSource dataSource, String studyInstanceUid) {
+    public List<DicomData> getAllBySourceAndStudyInstanceUid(
+            DicomDataSource dataSource, String studyInstanceUid) {
         throw new NotImplementedException();
     }
 }

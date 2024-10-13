@@ -14,5 +14,4 @@ public class CommonModule extends AbstractModule {
     MBassador<Object> mBassador() {
         return new MBassador<>(error -> System.out.println(error.toString()));
     }
-
 }

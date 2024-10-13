@@ -10,5 +10,6 @@ public interface DicomDataRepository extends CrudRepository<FrameId, DicomData> 
 
     List<FrameId> getAllIds(DicomDataSource dataSource);
 
-    List<DicomData> getAllBySourceAndStudyInstanceUid(DicomDataSource dataSource, String studyInstanceUid);
+    List<DicomData> getAllBySourceAndStudyInstanceUid(
+            DicomDataSource dataSource, String studyInstanceUid);
 }

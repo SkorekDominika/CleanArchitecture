@@ -14,5 +14,3 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @ScopeAnnotation
 public @interface HangingProtocolScoped {
 }
-
-

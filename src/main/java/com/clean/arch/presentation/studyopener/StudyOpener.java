@@ -19,10 +19,14 @@ public class StudyOpener {
 
     {
         try {
-            PATIENTS = Arrays.asList(
-                    new PatientStudyData("Jan Kowalski", Paths.get(getClass().getResource("/study1").toURI())),
-                    new PatientStudyData("Adam Przestroga", Paths.get(getClass().getResource("/study1").toURI())),
-                    new PatientStudyData("Danuta Kwiatkowska", Paths.get(getClass().getResource("/study1").toURI())));
+            PATIENTS =
+                    Arrays.asList(
+                            new PatientStudyData(
+                                    "Jan Kowalski", Paths.get(getClass().getResource("/study1").toURI())),
+                            new PatientStudyData(
+                                    "Adam Przestroga", Paths.get(getClass().getResource("/study1").toURI())),
+                            new PatientStudyData(
+                                    "Danuta Kwiatkowska", Paths.get(getClass().getResource("/study1").toURI())));
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

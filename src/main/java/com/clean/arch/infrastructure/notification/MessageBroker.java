@@ -18,10 +18,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Singleton
 public class MessageBroker {
 
-    Map<EntityIdentifier, List<WeakReference<ReadModel<? extends Entity>>>> readModels = new ConcurrentHashMap<>();
+    Map<EntityIdentifier, List<WeakReference<ReadModel<? extends Entity>>>> readModels =
+            new ConcurrentHashMap<>();
     ReferenceQueue<ReadModel<? extends Entity>> referenceQueue = new ReferenceQueue<>();
-    Map<Reference<ReadModel<? extends Entity>>, Runnable> referenceCleaners = new ConcurrentHashMap<>();
-
+    Map<Reference<ReadModel<? extends Entity>>, Runnable> referenceCleaners =
+            new ConcurrentHashMap<>();
 
     public MessageBroker() {
         Thread cleanerThread = createCleanerThread();
@@ -36,15 +37,16 @@ public class MessageBroker {
     }
 
     private Thread createCleanerThread() {
-        return new Thread(() -> {
-            while (true) {
-                try {
-                    cleanUpReferences();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
+        return new Thread(
+                () -> {
+                    while (true) {
+                        try {
+                            cleanUpReferences();
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
     }
 
     private void cleanUpReferences() throws InterruptedException {
@@ -55,19 +57,28 @@ public class MessageBroker {
     public void broadcast(IEvent event) {
         EntityIdentifier entityIdentifier = createEntityIdentifier(event);
         Optional.ofNullable(readModels.get(entityIdentifier))
-                .ifPresent(weakReferences -> weakReferences.forEach(reference ->
-                        Optional.ofNullable(reference.get())
-                                .ifPresent(readModel -> readModel.dispatchEvent(event))));
+                .ifPresent(
+                        weakReferences ->
+                                weakReferences.forEach(
+                                        reference ->
+                                                Optional.ofNullable(reference.get())
+                                                        .ifPresent(readModel -> readModel.dispatchEvent(event))));
     }
 
     public void subscribe(EntityIdentifier entityIdentifier, ReadModel<? extends Entity> readModel) {
-        WeakReference<ReadModel<? extends Entity>> weakReference = new WeakReference<>(readModel, referenceQueue);
-        readModels.computeIfAbsent(entityIdentifier, id -> new CopyOnWriteArrayList<>()).add(weakReference);
+        WeakReference<ReadModel<? extends Entity>> weakReference =
+                new WeakReference<>(readModel, referenceQueue);
+        readModels
+                .computeIfAbsent(entityIdentifier, id -> new CopyOnWriteArrayList<>())
+                .add(weakReference);
         referenceCleaners.put(weakReference, () -> cleanUpReadModels(entityIdentifier, weakReference));
     }
 
-    private void cleanUpReadModels(EntityIdentifier entityIdentifier, WeakReference<ReadModel<? extends Entity>> weakReference) {
-        readModels.computeIfAbsent(entityIdentifier, id -> new CopyOnWriteArrayList<>()).remove(weakReference);
+    private void cleanUpReadModels(
+            EntityIdentifier entityIdentifier, WeakReference<ReadModel<? extends Entity>> weakReference) {
+        readModels
+                .computeIfAbsent(entityIdentifier, id -> new CopyOnWriteArrayList<>())
+                .remove(weakReference);
         readModels.entrySet().removeIf(entry -> entry.getValue().isEmpty());
     }
 }

@@ -3,7 +3,7 @@ package com.clean.arch.presentation.studypresenter;
 import com.clean.arch.domain.model.DicomData;
 import com.clean.arch.domain.model.valueobject.FrameId;
 import com.clean.arch.presentation.studypresenter.command.DuplicateSeries;
-import com.clean.arch.presentation.studypresenter.command.SelectSeries;
+import com.clean.arch.presentation.studypresenter.command.VisualizeSeries;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import javafx.application.Platform;
@@ -36,6 +36,7 @@ public class Thumb implements Initializable {
     public AnchorPane thumbPane;
     @FXML
     public Button moreButton;
+
     @Inject
     @Named("windowMQ")
     private MBassador<Object> mBassador;
@@ -50,15 +51,20 @@ public class Thumb implements Initializable {
         System.out.println("Thumb:" + Objects.toIdentityString(mBassador));
     }
 
-    public void setDicomData(String seriesInstanceUid, Map<FrameId, CompletableFuture<DicomData>> loadingDicomDataByFrameId) {
+    public void setDicomData(
+            String seriesInstanceUid,
+            Map<FrameId, CompletableFuture<DicomData>> loadingDicomDataByFrameId) {
         frameIds = loadingDicomDataByFrameId.keySet();
         Collection<CompletableFuture<DicomData>> loadingDicomData = loadingDicomDataByFrameId.values();
 
         seriesUidLabel.setText(seriesInstanceUid);
         counter = new Counter(loadingDicomData.size());
-        counter.getCounterProperty().addListener(change -> Platform.runLater(() -> loadingStatus.setText(counter.toString())));
+        counter
+                .getCounterProperty()
+                .addListener(change -> Platform.runLater(() -> loadingStatus.setText(counter.toString())));
 
-        loadingDicomData.forEach(dicomDataFuture -> dicomDataFuture.thenAccept(dd -> counter.increment()));
+        loadingDicomData.forEach(
+                dicomDataFuture -> dicomDataFuture.thenAccept(dd -> counter.increment()));
 
         CompletableFuture.allOf(loadingDicomData.toArray(new CompletableFuture[0]))
                 .thenRun(() -> Platform.runLater(() -> loadingLabel.setVisible(false)));
@@ -66,7 +72,7 @@ public class Thumb implements Initializable {
 
     @FXML
     public void onSelected(MouseEvent mouseEvent) {
-        mBassador.publish(new SelectSeries(this.seriesUidLabel.getText()));
+        mBassador.publish(new VisualizeSeries(frameIds));
     }
 
     @FXML

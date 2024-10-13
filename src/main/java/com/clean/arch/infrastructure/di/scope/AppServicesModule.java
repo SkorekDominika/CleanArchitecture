@@ -20,7 +20,9 @@ public class AppServicesModule extends AbstractModule {
 
     @Provides
     @HangingProtocolScoped
-    StudyService studyService(DicomDataRepository dicomDataRepository, @Named("backendTP") ExecutorService backendExecutors) {
+    StudyService studyService(
+            DicomDataRepository dicomDataRepository,
+            @Named("backendTP") ExecutorService backendExecutors) {
         return new StudyService(dicomDataRepository, backendExecutors);
     }
 }

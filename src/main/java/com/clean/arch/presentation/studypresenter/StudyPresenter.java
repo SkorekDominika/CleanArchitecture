@@ -7,6 +7,8 @@ import com.clean.arch.domain.model.DicomData;
 import com.clean.arch.domain.model.valueobject.DicomDataSource;
 import com.clean.arch.domain.model.valueobject.FrameId;
 import com.clean.arch.presentation.studypresenter.command.DuplicateSeries;
+import com.clean.arch.presentation.studypresenter.command.VisualizeSeries;
+import com.clean.arch.presentation.studypresenter.event.FrameProvided;
 import com.clean.arch.presentation.util.MainFxLoader;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
@@ -14,6 +16,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import net.engio.mbassy.bus.MBassador;
 import net.engio.mbassy.listener.Handler;
@@ -32,6 +35,8 @@ public class StudyPresenter implements Initializable {
 
     @FXML
     public VBox thumbPanel;
+    @FXML
+    public StudyPane studyPaneController;
     @Inject
     StudyService studyService;
     @Inject
@@ -84,5 +89,13 @@ public class StudyPresenter implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Handler
+    private void handleVisualizeSeries(VisualizeSeries visualizeSeries) {
+        studyPaneController.visualizeFrames(visualizeSeries.series());
+        FrameId firstFrameId = visualizeSeries.series().stream().findFirst().orElseThrow(() -> new IllegalStateException("No image data!"));
+        CompletableFuture<DicomData> dicomDataCompletableFuture = studyService.loadStudy(firstFrameId);
+        mBassador.publish(new FrameProvided(dicomDataCompletableFuture));
     }
 }

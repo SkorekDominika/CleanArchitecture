@@ -13,5 +13,4 @@ public class PersistenceModule extends AbstractModule {
     DicomDataRepository dicomDataRepository() {
         return new FileSystemDicomDataRepository();
     }
-
 }

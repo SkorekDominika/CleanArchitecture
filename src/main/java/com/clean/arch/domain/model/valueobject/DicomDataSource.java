@@ -31,8 +31,8 @@ public final class DicomDataSource implements ValueObject {
         if (obj == this) return true;
         if (obj == null || obj.getClass() != this.getClass()) return false;
         var that = (DicomDataSource) obj;
-        return Objects.equals(this.sourceType, that.sourceType) &&
-                Objects.equals(this.locator, that.locator);
+        return Objects.equals(this.sourceType, that.sourceType)
+                && Objects.equals(this.locator, that.locator);
     }
 
     @Override
@@ -42,13 +42,12 @@ public final class DicomDataSource implements ValueObject {
 
     @Override
     public String toString() {
-        return "DicomDataSource[" +
-                "sourceType=" + sourceType + ", " +
-                "locator=" + locator + ']';
+        return "DicomDataSource[" + "sourceType=" + sourceType + ", " + "locator=" + locator + ']';
     }
 
-
     public enum SourceType {
-        PACS, CD, FILESYSTEM;
+        PACS,
+        CD,
+        FILESYSTEM;
     }
 }

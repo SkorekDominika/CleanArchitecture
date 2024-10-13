@@ -7,5 +7,4 @@ public class StudyFile {
 
     @FXML
     Label patientNameLabel;
-
 }
